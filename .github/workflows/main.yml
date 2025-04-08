@@ -1,0 +1,35 @@
+name: Package Python App
+
+on:
+  push:
+    branches:
+      - master  # Trigger this action only when you push to the master branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # This runs the workflow on Ubuntu, you can change it to Windows if needed
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Checkout your repository
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'  # Use the Python version you need (e.g., 3.8)
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller  # Install PyInstaller
+
+      - name: Package with PyInstaller
+        run: |
+          pyinstaller --onefile --barcodeapp.py  # Replace with your script's name
+
+      - name: Upload packaged executable as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: barcode-manager-executable  # Name of the artifact to be uploaded
+          path: dist/your_script_name  # Path to your executable (PyInstaller puts it in 'dist' folder)
+
