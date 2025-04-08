@@ -25,7 +25,7 @@ jobs:
 
       - name: Package with PyInstaller
         run: |
-          pyinstaller --onefile --windowed your_script_name.py  # Replace with your script's name
+          pyinstaller --onefile --windowed barcodeapp.py  # Replace with your script's name
 
       - name: Upload packaged executable as artifact
         uses: actions/upload-artifact@v2
